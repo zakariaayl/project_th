@@ -1,0 +1,17 @@
+
+  {
+    "id": 11,
+    "date": "2024-12-02",
+    "amount": 90.00,
+    "status": "shipped",
+    "customerName": "Ethan Brown",
+    "items": [
+      {
+        "product": "Headphones",
+        "quantity": 3,
+        "price": 30.00
+      }
+    ],
+    "shippingAddress": "101 Avenue des Champs, Bordeaux, France"
+  }
+]
