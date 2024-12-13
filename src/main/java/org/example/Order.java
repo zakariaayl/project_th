@@ -5,23 +5,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Order {
     int id;
-    Date dateS;
-    float amount;
+    String dateS;
+
     customer c;
     String status;
     String item;
     String addresse ;
     float price;
-    public Order(int id,Date date,float amount,customer d,String item,String addresse,String status,float price) {
-        this.id=id;
+    public Order(String date, customer d, String item, String addresse, String status, float price) {
+
         this.dateS=date;
-        this.amount=amount;
+        this.c=d;
         this.addresse=addresse;
         this.status=status;
         this.item = item;
@@ -34,9 +32,9 @@ public class Order {
            String user="root";
             String passwd="root";
            Connection conn= DriverManager.getConnection(url,user,passwd);
-           String sql="INSERT INTO order VALUES(null,?,?,?,?,?,?)";
+           String sql="INSERT INTO `order` VALUES(null,?,?,?,?,?,?)";
            PreparedStatement stmt=conn.prepareStatement(sql);
-           stmt.setDate(1,(java.sql.Date)this.dateS);
+           stmt.setString(1,this.dateS);
            stmt.setFloat(2,this.price);
            stmt.setString(3,this.status);
            stmt.setString(4,this.c.getName());
@@ -47,7 +45,7 @@ public class Order {
            return true;
        }
        else{
-           System.out.println("yawdi yawdi 3la l 9raya");
+           System.out.println("there is no custumer in that name");
            return false;
        }
     }

@@ -7,8 +7,8 @@ public class customer {
     private int id;
 
     private String name;
-    public customer(int id,String name){
-        this.id=id;
+    public customer(String name){
+
         this.name=name;
     }
 
@@ -17,17 +17,15 @@ public class customer {
     }
 
     public boolean check() throws SQLException, IOException {
-        String url="jdbc:mysql://localhost:3306/data";
+        String url="jdbc:mysql://localhost:3306/data?useSSL=false&serverTimezone=UTC";
         String user="root";
         String passwd="root";
         Connection conn= DriverManager.getConnection(url,user,passwd);
-        String sql="SELECT * FROM customer";
-        Statement stmt= conn.createStatement();
-        ResultSet rs=stmt.executeQuery(sql);
-       while(rs.next()){
-           if(this.name==rs.getString("name")) return true;
-       }
-       return false;
+        String sql="SELECT * FROM customer WHERE name = ?";
+        PreparedStatement stmt= conn.prepareStatement(sql);
+        stmt.setString(1,this.name);
+        ResultSet rs=stmt.executeQuery();
+       return rs.next();
     }
 
 }
